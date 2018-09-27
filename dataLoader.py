@@ -38,10 +38,13 @@ def pares_tfrecord(serialized_example):
 
     parsed_example = tf.parse_single_example(serialized=serialized_example, features=dict)
     image = tf.image.decode_jpeg(parsed_example['image'])
-    print(image)
-    #image = tf.image.resize_images(image, [435,580])
+
+    #image = tf.image.convert_image_dtype(image, dtype=tf.float32)
+    #print(image)
+    image = tf.image.resize_images(image, [640, 480],method=0)
     #print(image)
     image = tf.image.convert_image_dtype(image, dtype=tf.uint8)
+    #image = tf.image.resize_images(image, [640, 480])
     print(image)
     label = parsed_example['label']
     label = tf.cast(label, tf.int64)
